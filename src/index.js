@@ -1,8 +1,8 @@
 export function validate(value, validTypes, validValues) {
-   if (arguments.length == 0) return 'Expected 1 parameter but nothing'
+   if (arguments.length == 0) return TypeError('Expected 1 parameter but nothing')
    if (arguments.length == 1) return true // value can be any type
    if (arguments.length == 2) {
-      if((validTypes instanceof Array)==false) return 'Parameter 2 must be Array'
+      if((validTypes instanceof Array)==false) return TypeError('Parameter 2 must be Array')
       if (validTypes.length == 0) return true;
       // loop over validtypes
       const isValidType = validTypes.some(e => {
@@ -16,12 +16,12 @@ export function validate(value, validTypes, validValues) {
          }
       })
       if (isValidType == false) {
-         return `Unexpected type of value`
+         return TypeError(`Unexpected type of value`)
       }
    }
 
    if ((arguments.length == 3) && validValues && (validValues.includes(value) == false)) {
-      return `Value is out of range, valid value should be within ${validValues.join(', ')}`
+      return TypeError(`Value is out of range, valid value should be within ${validValues.join(', ')}`)
    }
 
    return true;
