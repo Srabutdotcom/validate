@@ -1,8 +1,8 @@
 export function validate(value, validTypes, validValues) {
-   if (arguments.length == 0) throw TypeError('Expected 1 parameter but nothing')
+   if (arguments.length == 0) return 'Expected 1 parameter but nothing'
    if (arguments.length == 1) return true // value can be any type
    if (arguments.length == 2) {
-      if((validTypes instanceof Array)==false) throw TypeError('Parameter 2 must be Array');
+      if((validTypes instanceof Array)==false) return 'Parameter 2 must be Array'
       if (validTypes.length == 0) return true;
       // loop over validtypes
       const isValidType = validTypes.some(e => {
@@ -16,12 +16,12 @@ export function validate(value, validTypes, validValues) {
          }
       })
       if (isValidType == false) {
-         throw TypeError(`Unexpected type of value`)
+         return `Unexpected type of value`
       }
    }
 
-   if ((arguments.length == 2) && validValues && (validValues.includes(value) == false)) {
-      throw TypeError(`Value is out of range, valid value should be within ${validValues.join(', ')}`)
+   if ((arguments.length == 3) && validValues && (validValues.includes(value) == false)) {
+      return `Value is out of range, valid value should be within ${validValues.join(', ')}`
    }
 
    return true;
@@ -32,12 +32,22 @@ function handleObject(value, object) {
    const objectEntries = Object.entries(object);
 
    if ((objectEntries.length == 0) && (valueEntries.length == 0)) return true;
-   if (objectEntries.length !== valueEntries.length) return false
 
-   return valueEntries.every((e, i) => {
-      const [keyInValue, valueInValue] = e;
-      const [keyInObject, valueInObject] = objectEntries[i];
-      return (keyInValue === keyInObject) && (typeof (valueInValue) === typeof (valueInObject))
+   return objectEntries.every((e, i) => {
+      const [keyInObject, valueInObject] = e;
+      const [keyInValue, valueInValue] = valueEntries[i];
+      const validTypes = [];
+      if(typeof(valueInObject)!=='object'){
+         validTypes.push(typeof(valueInObject))
+      } else if(valueInObject instanceof Object){
+         validTypes.push(valueInObject)
+      } else {
+         validTypes.push(valueInObject.constructor)
+      }
+
+      const result =  (keyInValue === keyInObject) && (validate(valueInValue,validTypes) == true)
+      if(result!==true) return false
+      return true
    })
 }
 
