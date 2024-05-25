@@ -12,12 +12,12 @@ The `validate.js` library exports a single function named `validate`.  This func
 
 1. **value (required):** The value to be validated.
 2. **types (optional):** An array of valid types for the `value`.
-3. **validValues (optional):** An array of valid values for the `value` (if applicable).
+3. **values (optional):** An array of valid values for the `value` (if applicable).
 
 **Example:**
 
 ```javascript
-import { validate } from './validate.js';
+import { validate } from 'https://deno.land/x/validatevalue';
 
 // Validate a string value
 const name = "John Doe";
