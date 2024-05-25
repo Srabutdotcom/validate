@@ -17,7 +17,7 @@ The `validate.js` library exports a single function named `validate`.  This func
 **Example:**
 
 ```javascript
-import { validate } from 'https://deno.land/x/validatevalue';
+import { validate } from 'https://deno.land/x/validatevalue/mod.js';
 
 // Validate a string value
 const name = "John Doe";
