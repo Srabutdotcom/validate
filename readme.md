@@ -14,45 +14,45 @@ The `validate.js` library exports a single function named `validate`.  This func
 2. **types (optional):** An array of valid types for the `value`.
 3. **values (optional):** An array of valid values for the `value` (if applicable).
 
+return { true | TypeError }
+
 **Example:**
 
 ```javascript
 import { validate } from 'https://deno.land/x/validatevalue/mod.js';
+// to use source code use url https://deno.land/x/validatevalue/src/index.js
 
+let isValid
 // Validate a string value
 const name = "John Doe";
-validate(name, ["string"]); 
+isValid = validate(name, ["string"]); // return true
 
 // Validate an integer within a range
 const age = 25;
-validate(age, ["number"], [18, 25, 30]);
+isValid = validate(age, ["number"], [18, 25, 30]); // return true
 
 // Validate an object with specific properties
 const user = { name: "Alice", age: 30 };
-const userTypes = { name: "string", age: "number" };
-validate(user, [userTypes]);
+const userTypes = { name: "string", age: 10 };
+isValid = validate(user, [userTypes]); // return true
 
-// Handle errors (optional)
-try {
-  validate(123, ["string"]); // This will throw a TypeError
-} catch (error) {
-  console.error(error.message);
-}
+//invalid value
+isValid = validate(123, ["string"]); // return TypeError
 ```
 
 **Function Behavior:**
 
-- If no arguments are provided, the function throws a `TypeError` indicating that at least one argument (the value to validate) is required.
+- If no arguments are provided, the function return `TypeError` indicating that at least one argument (the value to validate) is required.
 - If only the value is provided, the function simply returns `true`, assuming no type or value restrictions are specified.
 - If the second argument (`types`) is provided:
     - It must be an array.
     - If the array is empty, all types are considered valid (no type checking).
     - If the array contains types, the function checks if the `value`'s type matches any of the specified types using `instanceof` for functions and deep object comparison for objects.
-    - If a type mismatch occurs, the function throws a `TypeError` with a descriptive message.
+    - If a type mismatch occurs, the function return `TypeError` with a descriptive message.
 - If the third argument (`validValues`) is provided:
     - It must be an array.
     - The function checks if the `value` exists within the `validValues` array using the `includes` method.
-    - If the `value` is not found in the valid values list, the function throws a `TypeError` with a message indicating the expected valid values.
+    - If the `value` is not found in the valid values list, the function return `TypeError` with a message indicating the expected valid values.
 
 **Additional Notes:**
 
