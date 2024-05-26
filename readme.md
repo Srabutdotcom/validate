@@ -64,7 +64,7 @@ isValid = validate(123, ["string"]); // return TypeError
 This is a basic example. Feel free to modify and extend the functionality based on your specific requirements.
 
 ** Sponsorship **
-I need Sponsorship to maintain and create other codes
+I need Sponsorship to maintain and create other codes.
 Just click one of the following links
 - https://github.com/sponsors/Srabutdotcom
 - https://paypal.me/aiconeid
