@@ -12,3 +12,5 @@ console.log(`validate({ a: 10 }, [{ b: 10 }])) :`,validate({ a: 10 }, [{ b: 10 }
 console.log(`validate('n',['number','string'],['n',1])) :`,validate('n',['number','string'],['n',1])) // true
 console.log(`validate('n',['number','string'],[1])) :`,validate('n',['number','string'],[1])) // false
 
+console.log(`validate(1,['integer'],[1])) :`,validate(1,['integer'])) // false
+

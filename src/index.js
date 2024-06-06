@@ -11,9 +11,9 @@ export function validate(value, validTypes, validValues) {
          if ((typeOf == 'object') && (typeof (value) == 'object')) {
             if ((e === null) || (value === null)) return value === e;
             return handleObject(value, e)
-         } else {
-            return typeof (value) === e
-         }
+         } 
+         if(e=='integer') return Number.isInteger(value)
+         return typeof (value) === e
       })
       if (isValidType == false) {
          return TypeError(`Unexpected type of value`)
@@ -51,4 +51,4 @@ function handleObject(value, object) {
    })
 }
 
-//`esbuild ./index.js --bundle --minify --format=esm --target=es2022 --outfile=../dist/validate.js`
+//`esbuild ./index.js --bundle --minify --format=esm --target=esnext --outfile=../dist/validate.js`
